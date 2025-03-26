@@ -5,6 +5,10 @@ export interface listData {
   description: string
   category: string
   image: string
+  rating: {
+    rate: number
+    count: number
+  }
 }
 
 export interface formData {
@@ -14,6 +18,10 @@ export interface formData {
   description: string
   category: string
   image: string
+  rating: {
+    rate: number
+    count: number
+  }
 }
 
 export interface listDataV2 {

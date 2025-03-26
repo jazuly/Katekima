@@ -17,6 +17,10 @@ const formData = ref<formData>({
   description: '',
   category: '',
   image: '',
+  rating: {
+    rate: 0,
+    count: 0,
+  },
 })
 const isAbleSubmit = computed(() => {
   return Object.values(formData.value).every((val) => val !== '')

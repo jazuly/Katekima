@@ -3,16 +3,20 @@ import { deleted, index } from '@/api'
 import { dataStore } from '@/stores'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import TheSkeleton from './TheSkeleton.vue'
 
 onMounted(async () => {
   if (store.table.results.length === 0) {
+    isLoading.value = true
     await index()
+    isLoading.value = false
   }
 })
 
 const store = dataStore()
 const isModalOpen = ref(false)
 const router = useRouter()
+const isLoading = ref(false)
 
 const deleteData = async (id: number) => {
   await deleted(id)
@@ -37,7 +41,10 @@ const deleteData = async (id: number) => {
         </th>
         <th class="text-center w-10">Aksi</th>
       </tr>
-      <template v-if="store.listDataTable.length > 0">
+      <template v-if="isLoading">
+        <TheSkeleton />
+      </template>
+      <template v-else-if="store.listDataTable.length > 0">
         <tr v-for="(data, dk) in store.listDataTable" :key="dk">
           <td>{{ (store.table.page - 1) * store.table.limit + dk + 1 }}</td>
           <td class="text-left">{{ data.title }}</td>
